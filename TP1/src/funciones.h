@@ -2,7 +2,7 @@
  * funciones.h
  *
  *  Created on: 24 sep. 2022
- *      Author: Impuestos
+ *      Author: Gustavo Leiva
  */
 
 #ifndef FUNCIONES_H_
