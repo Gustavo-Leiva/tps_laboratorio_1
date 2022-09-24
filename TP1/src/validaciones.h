@@ -1,7 +1,7 @@
 /*
  * validaciones.h
  *
- *  Created on: 23 sep. 2022
+ *  Created on: 24 sep. 2022
  *      Author: Impuestos
  */
 
@@ -11,8 +11,6 @@
 
 
 #endif /* VALIDACIONES_H_ */
-
-
 
 /** \brief solicita al usuario el ingreso de una opcion sobre la opciones listadas.
  *
@@ -98,4 +96,3 @@ int validarNumero(char numero[]);
  *
  */
 int convertirCharAInt(char num[], int* pNumero);
-

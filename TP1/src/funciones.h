@@ -1,8 +1,8 @@
 /*
  * funciones.h
  *
- *  Created on: 23 sep. 2022
- *      Author: Gustavo Leiva
+ *  Created on: 24 sep. 2022
+ *      Author: Impuestos
  */
 
 #ifndef FUNCIONES_H_
@@ -11,8 +11,6 @@
 
 
 #endif /* FUNCIONES_H_ */
-
-
 
 
 /** \brief Muestra la barra de menu de opciones y devuelve la carga actualizada de las opciones ingresadas.
@@ -203,3 +201,4 @@ int informar (int* pFlagMantenimiento, int* pFlagJugador, int* pFlagCalculo );
  *
  */
 void cargarYContarLiga(int* pContJugadoresLigaAfc, int* pContJugadoresLigaCaf, int* pContJugadoresLigaConcacaf, int* pContJugadoresLigaConmebol, int* pContJugadoresLigaUefa, int* pContJugadoresLigaOfc);
+

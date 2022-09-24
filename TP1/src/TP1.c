@@ -77,7 +77,6 @@ int main(void) {
 	        //Menu costo de mantenimiento.
 	        case 1:
 
-	            //Pide y valida  datos del hospedaje
 	            pedirValidarNumeroFlotante(&costoHospedaje, mensajeCostoHospedaje);
 	            confirmarCarga(&carga);
 	            if(carga == 's' || carga == 'S' )
@@ -89,9 +88,6 @@ int main(void) {
 	            }
 
 
-
-
-	            //Pide y valida los datos de la comida
 	            pedirValidarNumeroFlotante(&costoComida, mensajeCostoComida);
 	            confirmarCarga(&carga);
 	            if(carga == 's' || carga == 'S')
@@ -102,8 +98,6 @@ int main(void) {
 	            }
 
 
-
-	            //pide y valida los datos del transporte.
 	            pedirValidarNumeroFlotante(&costoTransporte, mensajeCostoTransporte);
 	            confirmarCarga(&carga);
 	            if(carga == 's' || carga == 'S')
@@ -112,8 +106,6 @@ int main(void) {
 	                mantenimiento(&flagMantenimiento);
 
 	            }
-
-
 
 
 	            break;
@@ -125,7 +117,7 @@ int main(void) {
 	                pedirValidoNumeroRango(&puesto, mensajePedidoJugador,1,4);
 	                switch(puesto)
 	                {
-	                //Carga de Arqueros.
+
 	                case 1:
 
 	                    if( contArqueros == TAMARQ)
@@ -153,7 +145,7 @@ int main(void) {
 
 	                    break;
 
-	                //Carga de Defensores.
+
 	                case 2:
 	                    if( contDefensores == TAMDEF)
 	                    {
@@ -181,7 +173,7 @@ int main(void) {
 	                    }
 	                    break;
 
-	                //Carga de Mediocampistas.
+
 	                case 3:
 	                    if( contMediocampistas==TAMMED)
 	                    {
@@ -211,7 +203,7 @@ int main(void) {
 	                    break;
 
 
-	                //carga de Delanteros.
+
 	                case 4:
 	                    if( contDelanteros == TAMDEL)
 	                    {
@@ -237,7 +229,6 @@ int main(void) {
 
 	                        }
 
-
 	                    }
 	                    break;
 	                }
@@ -253,7 +244,7 @@ int main(void) {
 	            break;
 
 
-	        //Realiza todos los calculos
+	        //Realizar todos los calculos
 	        case 3:
 	            if(flagJugador ==1)
 	            {
@@ -285,7 +276,7 @@ int main(void) {
 
 
 
-	        //Muestra los resultados.
+	        //Mostrar los resultados.
 	        case 4:
 	            if(flagCalcular == 1)
 	            {
@@ -348,3 +339,4 @@ int main(void) {
 
 	return EXIT_SUCCESS;
 }
+

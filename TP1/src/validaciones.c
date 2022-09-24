@@ -1,8 +1,9 @@
 /*
  * validaciones.c
  *
- *  Created on: 23 sep. 2022
- *      Author: Impuestos
+ *  Created on: 24 sep. 2022
+ *      Author: Gustavo Leiva
+ *
  */
 
 #include <stdio.h>
@@ -210,5 +211,6 @@ int convertirCharAInt(char num[], int* pNumero)
     }
     return todoOk;
 }
+
 
 

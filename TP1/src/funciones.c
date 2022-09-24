@@ -1,7 +1,7 @@
 /*
  * funciones.c
  *
- *  Created on: 23 sep. 2022
+ *  Created on: 24 sep. 2022
  *      Author: Gustavo Leiva
  */
 
