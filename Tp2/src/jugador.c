@@ -1,43 +1,24 @@
 /*
  * jugador.c
  *
- *  Created on: 29 oct. 2022
+ *  Created on: 18 nov. 2022
  *      Author: Impuestos
  */
-
 
 #include <stdio.h>
 #include <stdlib.h>
 
 #include "jugador.h"
-#include "confederacion.h"
+#include "confederation.h"
 #include "validaciones.h"
+#include "menu.h"
 
 
 
 #include <string.h>
 #include <ctype.h>
 
-int menuJugador()
-{
-    int opcion;
 
-    system("cls");
-    printf("********** ABM Jugador*******\n\n");
-    printf("1. Alta Jugador\n");
-    printf("2. Baja Jugador\n");
-    printf("3. Modificar Jugador\n");
-    printf("4. Informes\n");
-    printf("5. Salir\n");
-
-    printf("ingrese opcion: ");
-    fflush(stdin);
-    scanf("%d", &opcion);
-
-
-    return opcion;
-
-}
 
 
 int inicializarJugador(eJugador vec[], int tam)
@@ -65,9 +46,29 @@ int harcodearJugadores(eJugador vec[], int tam, int cantJ, int* pNextId)
 {
     int todoOk = 0;
 
-    //modificar
-    eJugador jugadores [10]=
+
+
+    eJugador jugadores [15]=
     {
+        {1,"Emiliano Martinez","ARQUERO",1,100,100000,4,0},
+        {2,"Juan Musso","ARQUERO",12,100,80000,2,0},
+        {3,"Leo Messi","DELANTERO",10,100,80000,4,0},
+        {4,"Almirez Ali","DELANTERO",9,100,55000,1,0},
+        {5,"Harry Maguire","DEFENSOR",2,101,70000,4,0},
+        {6,"Eric Dier","DEFENSOR",3,101,60000,2,0},
+        {7,"Harry Kane","DELANTERO",10,101,3000,2,0},
+        {8,"Alfred Gomis","ARQUERO",1,101,9000,1,0},
+        {9,"Abdelkarim Hassan","MEDIOCAMPISTA",8,101,48000,1,0},
+        {10,"Guillermo Ochoa","ARQUERO",1,104,90000,4,0},
+        {11,"Tecatito","DELANTERO",11,104,100000,3,0},
+        {12,"Luis Romo","MEDIOCAMPISTA",7,104,100000,2,0},
+        {13,"Bamba Dieng ","DELANTERO",9,103,100000,2,0},
+        {14,"Demba Seck","DELANTERO",11,103,6000,2,0},
+        {15,"Tarek Salman","DEFENSOR",6,102,78000,5,0}
+
+
+
+        /*
         {0, "Lionel Messi", "Delantero", 10, 100,25000,4,0},
         {0, "Cristiano Ronaldo", "Delantero", 7, 101,25000,5,0},
         {0, "Kylian Mbappe", "Delantero", 10, 102,25000,2,0},
@@ -78,11 +79,11 @@ int harcodearJugadores(eJugador vec[], int tam, int cantJ, int* pNextId)
         {0, "Robert Lewandowski", "Delantero", 9, 100,25000,4,0},
         {0, "Harry Kane", "Delantero", 9, 101,25000,4,0},
         {0, "Luis Suarez", "Delantero", 9, 100,25000,4,0}
-
+        */
 
     };
 
-    if(vec != NULL && pNextId != NULL && tam> 0 && tam <=10 && cantJ <= tam)
+    if(vec != NULL && pNextId != NULL && tam> 0 && tam <=15 && cantJ <= tam)
     {
         for (int i = 0; i<cantJ; i++)
         {
@@ -127,21 +128,20 @@ int buscarLibreJugador(eJugador vec[], int tam, int* pIndex)
 
 
 
-int altaJugador(eJugador vec[], int tam, eConfederacion confederaciones[], int tamC, int* pNextId)
+int altaJugador(eJugador vec[], int tam, eConfederacion confederaciones[], int tamC, int* pNextId, int* pFlag)
 {
 
     int todoOk = 0;
     int indice;
-    //char auxNombre;
-    char mensajePedidoCamiseta []= {"numero de camiseta"};
-    char numeroCamiseta;
+    int numeroCamiseta;
     int idConfederacion;
     float salario;
     int contrato;
     char auxNombre [50];
-    char auxApellido[50];
-    char auxPosicion[50];
+    int auxPosicion;
+    char confirma;
     eJugador nuevoJugador;
+
 
 
     if(vec != NULL  && confederaciones != NULL  && tam > 0 && tamC > 0 && pNextId != NULL)
@@ -150,7 +150,7 @@ int altaJugador(eJugador vec[], int tam, eConfederacion confederaciones[], int t
         system("cls");
         printf("********Alta Jugador********\n");
         printf("-------------------------\n");
-        buscarLibreJugador(vec, tam, &indice); //esta funcion devuelve -1 sino hay lugar o el numero de indice proximo vacio.
+        buscarLibreJugador(vec, tam, &indice);
 
 
         if (indice == -1)
@@ -162,50 +162,38 @@ int altaJugador(eJugador vec[], int tam, eConfederacion confederaciones[], int t
         {
             nuevoJugador.id = *pNextId;
 
-            //pedir nombre
-            pidoValidoLetras(auxNombre, 50, "nombre");
-            strlwr(auxNombre);
-            auxNombre[0] =toupper(auxNombre[0]);
-            //fflush(stdin);
 
-            pidoValidoLetras(auxApellido, 50, "apellido");
-            strlwr(auxApellido);
-            auxApellido[0]=toupper(auxApellido[0]);
-            //fflush(stdin);
-
-            strcat(auxNombre, " ");
-            strcat(auxNombre, auxApellido);
-
-
-            strcpy(nuevoJugador.nombre, auxNombre);
-
-
-            // pedir posicion
-            pidoValidoLetras(auxPosicion, 50, "posicion");
-            strlwr(auxPosicion);
-            auxPosicion[0]=toupper(auxPosicion[0]);
-            while(
-                !strcmp(auxPosicion, "Arquero") == 0  &&
-                !strcmp(auxPosicion, "Delantero") == 0&&
-                !strcmp(auxPosicion, "Defensor") == 0 &&
-                !strcmp(auxPosicion, "Mediocampista") == 0
-            )
+            if(cargaString(auxNombre, 50,"ingrese nombre: ", "Error, ingrese solo caracteres: "))
             {
-                pidoValidoLetras(auxPosicion, tam, "posicion");
-                strlwr(auxPosicion);
-                auxPosicion[0]=toupper(auxPosicion[0]);
+                strlwr(auxNombre);
+                auxNombre[0] =toupper(auxNombre[0]);
             }
 
 
-            strcpy(nuevoJugador.posicion,auxPosicion);
 
 
-            //pedir numero de camiseta
-            pedirCamiseta(&numeroCamiseta, mensajePedidoCamiseta);
-            nuevoJugador.numeroCamiseta = numeroCamiseta;
+            printf("\nListado de posiciones\n");
+            pidoValidoNumero(&auxPosicion, "posicion: \n1.Arquero\n2.Defensor\n3.Mediocampista\n4.Delantero ");
+            while(  auxPosicion != 1
+                    &&auxPosicion != 2
+                    &&auxPosicion != 3
+                    &&auxPosicion != 4)
+            {
+                pidoValidoNumero(&auxPosicion, "posicion");
+            }
 
 
-            //listar confederaciones
+
+
+            pidoValidoNumero(&numeroCamiseta, "numero de camiseta (no mayor a 100)");
+            while(numeroCamiseta > 100)
+            {
+                pidoValidoNumero(&numeroCamiseta, "numero de camiseta (no mayor a 100)");
+            }
+
+
+
+
             listarConfederacion(confederaciones, tamC);
             printf("Ingrese  Id Confederacion: ");
             fflush(stdin);
@@ -217,44 +205,67 @@ int altaJugador(eJugador vec[], int tam, eConfederacion confederaciones[], int t
                 scanf("%d", &idConfederacion);
             }
 
-            nuevoJugador.idConfederacion = idConfederacion;
 
 
 
-            //ingreso Salario
-            pidoValidoFloat(&salario,"salario");
-            nuevoJugador.salario = salario;
+            pidoValidoFloat(&salario,"salario: ");
 
 
-            //ingreso contrato
-            pidoValidoNumero(&contrato, "anio de contrato");
+
+
+            pidoValidoNumero(&contrato, "cantidad de anio de contrato: ");
             while(contrato > 10)
             {
-                pidoValidoNumero(&contrato, "anio de contrato");
+                pidoValidoNumero(&contrato, "cantidad de anio de contrato (no mayor a 10): ");
             }
-            nuevoJugador.aniosContrato = contrato;
 
 
 
-            nuevoJugador.isEmpty = 0;
-            //lo igual a cero porque digo que esa posicion no va a estar libre
-            //recordar que isEmpty es 1 si esta libre. y 0 sin no lo esta
+
+            if(confirmarCarga(&confirma))
+            {
+                //inyecto nombre
+                strcpy(nuevoJugador.nombre, auxNombre);
 
 
-            vec[indice] = nuevoJugador;
-            //aca lo inyecto en la lista de motos
+                //inyecto posision
+                switch(auxPosicion)
+                {
+                case 1:
+                    strcpy(nuevoJugador.posicion,"Arquero");
+                    break;
+                case 2:
+                    strcpy(nuevoJugador.posicion,"Defensor");
+                    break;
+                case 3:
+                    strcpy(nuevoJugador.posicion,"Mediocampista");
+                    break;
+                case 4:
+                    strcpy(nuevoJugador.posicion,"Delantero");
+                    break;
+                }
 
-            (*pNextId)++;
-            //aca una vez inyectado tengo que actualizar a traves de *pNextId lo incremento en 1
+
+                nuevoJugador.numeroCamiseta = numeroCamiseta;
+                nuevoJugador.idConfederacion = idConfederacion;
+                nuevoJugador.salario = salario;
+                nuevoJugador.aniosContrato = contrato;
 
 
+                nuevoJugador.isEmpty = 0;
 
-            todoOk = 1;
+
+                vec[indice] = nuevoJugador;
+
+
+                (*pNextId)++;
+                *pFlag=0;
+                todoOk = 1;
+
+            }
+
 
         }
-
-
-
 
     }
 
@@ -265,14 +276,13 @@ int altaJugador(eJugador vec[], int tam, eConfederacion confederaciones[], int t
 
 
 
-int modificarJugador(eJugador jugadores[], int tam, eConfederacion confederaciones[], int tamC)
+int modificarJugador(eJugador jugadores[], int tam, eConfederacion confederaciones[], int tamC, int flag)
 {
     int todoOk = 0;
     int indice;
     int id;
-    char auxNuevaPosicion[50];
+    int auxNuevaPosicion;
     char auxNuevoNombre [50];
-    char auxNuevoApellido [50];
     int  auxNuevaCamiseta;
     float auxFloat;
     int auxInt;
@@ -281,9 +291,10 @@ int modificarJugador(eJugador jugadores[], int tam, eConfederacion confederacion
 
 
 
-    if(jugadores != NULL && tam > 0 && confederaciones != NULL && tamC >0)
+
+    if(jugadores != NULL && tam > 0 && confederaciones != NULL && tamC >0  && flag == 0)
     {
-        listarJugadores(jugadores, tam, confederaciones, tamC); //tiene listar y lista fila.
+        listarJugadores(jugadores, tam, confederaciones, tamC);
         printf("Ingrese Id:");
         scanf("%d", &id);
 
@@ -306,54 +317,68 @@ int modificarJugador(eJugador jugadores[], int tam, eConfederacion confederacion
                 case 1:
 
 
-                    //pedir nombre
-                    pidoValidoLetras(auxNuevoNombre, 50, "nombre");
-                    strlwr(auxNuevoNombre);
-                    auxNuevoNombre[0] =toupper(auxNuevoNombre[0]);
-
-                    //pedir apellido
-                    pidoValidoLetras(auxNuevoApellido, 50, "apellido");
-                    strlwr(auxNuevoApellido);
-                    auxNuevoApellido[0]=toupper(auxNuevoApellido[0]);
-
-
-                    if(confirmarCarga(&confirma))
+                    if(cargaString(auxNuevoNombre, 50,"ingrese nombre: ", "Error, ingrese solo caracteres: "))
                     {
-                        strcat(auxNuevoNombre, " ");
-                        strcat(auxNuevoNombre, auxNuevoApellido);
-                        strcpy(jugadores[indice].nombre, auxNuevoNombre);
+                        if(confirmarCarga(&confirma))
+                        {
+                            strlwr(auxNuevoNombre);
+                            auxNuevoNombre[0] =toupper(auxNuevoNombre[0]);
+                            strcpy(jugadores[indice].nombre, auxNuevoNombre);
+                        }
 
                     }
+
                     break;
 
 
                 case 2:
-                    pidoValidoLetras(auxNuevaPosicion, 50, "nueva posicion");
-                    strlwr(auxNuevaPosicion);
-                    auxNuevaPosicion[0]=toupper(auxNuevaPosicion[0]);
-                    while(
-                        !strcmp(auxNuevaPosicion, "Arquero") == 0  &&
-                        !strcmp(auxNuevaPosicion, "Delantero") == 0&&
-                        !strcmp(auxNuevaPosicion, "Defensor") == 0 &&
-                        !strcmp(auxNuevaPosicion, "Mediocampista") == 0
-                    )
+
+                    printf("\nListado de posiciones\n");
+                    pidoValidoNumero(&auxNuevaPosicion, "Nueva posicion: \n1.Arquero\n2.Defensor\n3.Mediocampista\n4.Delantero ");
+                    while(  auxNuevaPosicion != 1
+                            &&auxNuevaPosicion != 2
+                            &&auxNuevaPosicion != 3
+                            &&auxNuevaPosicion != 4)
                     {
-                        pidoValidoLetras(auxNuevaPosicion, tam, "posicion");
-                        strlwr(auxNuevaPosicion);
-                        auxNuevaPosicion[0]=toupper(auxNuevaPosicion[0]);
+                        pidoValidoNumero(&auxNuevaPosicion, "Nueva posicion");
                     }
 
 
 
                     if(confirmarCarga(&confirma))
                     {
-                        strcpy(jugadores[indice].posicion, auxNuevaPosicion);
+                        switch(auxNuevaPosicion)
+                        {
+                        case 1:
+                            strcpy(jugadores[indice].posicion,"Arquero");
+                            break;
+                        case 2:
+                            strcpy(jugadores[indice].posicion,"Defensor");
+                            break;
+                        case 3:
+                            strcpy(jugadores[indice].posicion,"Mediocampista");
+                            break;
+                        case 4:
+                            strcpy(jugadores[indice].posicion,"Delantero");
+                            break;
+                        }
+
                     }
                     break;
 
+
+
+
                 case 3:
 
-                    pidoValidoNumero(&auxNuevaCamiseta,"nuevo numero de camiseta");
+                    pidoValidoNumero(&auxNuevaCamiseta, "numero de camiseta (no mayor a 100)");
+                    while(auxNuevaCamiseta > 100)
+                    {
+                        pidoValidoNumero(&auxNuevaCamiseta, "numero de camiseta (no mayor a 100)");
+                    }
+
+
+
                     if(confirmarCarga(&confirma))
                     {
                         jugadores[indice].numeroCamiseta = auxNuevaCamiseta;
@@ -375,7 +400,7 @@ int modificarJugador(eJugador jugadores[], int tam, eConfederacion confederacion
                     }
 
 
-                    jugadores[indice].idConfederacion = idConfederacion;
+
                     if(confirmarCarga(&confirma))
                     {
 
@@ -393,7 +418,13 @@ int modificarJugador(eJugador jugadores[], int tam, eConfederacion confederacion
                     break;
 
                 case 6:
-                    pidoValidoNumero(&auxInt, "nuevo anio de contrato:\n");
+                    pidoValidoNumero(&auxInt, "cantidad de anio de contrato: ");
+                    while(auxInt > 10)
+                    {
+                        pidoValidoNumero(&auxInt, "cantidad de anio de contrato (no mayor a 10): ");
+                    }
+
+
                     if(confirmarCarga(&confirma))
                     {
                         jugadores[indice].aniosContrato = auxInt;
@@ -404,9 +435,16 @@ int modificarJugador(eJugador jugadores[], int tam, eConfederacion confederacion
             }
 
             todoOk = 1;
-
         }
 
+    }
+
+
+
+    else
+
+    {
+        printf("Primero debe ingresar jugadores al sistema.\n");
     }
 
     return todoOk;
@@ -506,7 +544,6 @@ int buscarJugador(eJugador jugadores[], int tam, int id, int* pIndex)
         for(int i = 0; i < tam; i++)
         {
 
-            //aca busco que la estructura no este vacia y que el id que busco coincida con ese lugar.
             if(!jugadores[i].isEmpty && jugadores[i].id == id)
             {
                 *pIndex = i;
@@ -544,41 +581,19 @@ int validarJugador (eJugador jugadores[], int tam, int id)
 
 
 
-int menuModificarJugador()
-{
-    int opcion;
-    printf("******************************\n\n");
-    printf("   *** Campo a modificar ***  \n");
-    printf("-----------------------------*\n\n");
-    printf("1. Nombre y apellido\n");
-    printf("2. Posicion\n");
-    printf("3. Numero de Camiseta\n");
-    printf("4. Confederacion\n");
-    printf("5. Salario\n");
-    printf("6. Anios de Contrato\n");
-    printf("7. Salir:\n");
-    printf("Ingrese Opcion: ");
-    fflush(stdin);
-    scanf("%d", &opcion);
-
-    return opcion;
 
 
-}
-
-
-
-
-
-int bajaJugador (eJugador jugadores[], int tam, eConfederacion confederaciones[], int tamC)
+int bajaJugador (eJugador jugadores[], int tam, eConfederacion confederaciones[], int tamC, int flag)
 {
     int todoOk = 0;
     int indice;
     int id;
     char confirma;
 
-    if(jugadores != NULL && tam > 0 && confederaciones != NULL && tamC > 0)
+
+    if(jugadores != NULL && tam > 0 && confederaciones != NULL && tamC > 0 && flag == 0)
     {
+
         listarJugadores(jugadores, tam, confederaciones, tamC);
 
         printf("Ingrese Id:");
@@ -615,8 +630,12 @@ int bajaJugador (eJugador jugadores[], int tam, eConfederacion confederaciones[]
 
         }
 
+    }
 
+    else
 
+    {
+        printf("Primero debe cargar jugadores en el sistema.\n");
     }
 
 
@@ -644,38 +663,16 @@ int bajaJugador (eJugador jugadores[], int tam, eConfederacion confederaciones[]
 */
 
 
-int menuInformes()
-{
-    int opcion;
-
-    system("cls");
-    printf("********** Menu de Informes*******\n\n");
-    printf("1. Ordenar por Confederacion y Nombre del Jugador\n");
-    printf("2. Listado confederaciones con sus jugadores\n");
-    printf("3. Total y promedio de salario, cantidad de jugadores cobran mas que el promedio\n");
-    printf("4. Confederacion mayor cantidad de contratos\n");
-    printf("5. Porcentaje de jugadores por confederacion\n");
-    printf("6. Region con mas Jugadores\n");
-    printf("7. Salir\n");
-
-    printf("ingrese opcion: ");
-    fflush(stdin);
-    scanf("%d", &opcion);
-
-
-    return opcion;
-
-}
 
 
 
 
-int informes (eJugador vec[], int tam, eConfederacion confederaciones[], int tamC)
+int informes (eJugador vec[], int tam, eConfederacion confederaciones[], int tamC, int flag)
 {
     int todoOk = 0;
     float promedio;
 
-    if(vec != NULL && confederaciones != NULL && tam >0 && tamC > 0)
+    if(vec != NULL && confederaciones != NULL && tam >0 && tamC > 0 && flag == 0)
     {
         switch(menuInformes())
         {
@@ -717,6 +714,15 @@ int informes (eJugador vec[], int tam, eConfederacion confederaciones[], int tam
 
         todoOk = 1;
 
+    }
+
+
+
+
+    else
+
+    {
+        printf("Primero debe cargar jugadores en el sistema.\n");
     }
 
     return todoOk;
@@ -1037,7 +1043,7 @@ int confederacionMasContratos(eJugador vec[], int tam, eConfederacion confederac
     int todoOk = 0;
     float totales[tamC];
     int flag = 1;
-    float mayor;
+    int mayor;
 
     if(vec != NULL && tam > 0 && confederaciones != NULL && tamC > 0)
     {
@@ -1068,7 +1074,7 @@ int confederacionMasContratos(eJugador vec[], int tam, eConfederacion confederac
 
             if(totales[i]==mayor)
             {
-                printf("\n%s", confederaciones[i].nombre);
+                printf("\n%s con %d anios de contratos", confederaciones[i].nombre, mayor);
 
             }
         }
@@ -1136,12 +1142,14 @@ int porcentajeJugadoresXConfederacion(eJugador vec[], int tam, eConfederacion co
         int contJugAfc = 0;
         int contJugConcaf = 0;
         int contJugOfc = 0;
+        int contJugCaf = 0;
 
         float porcentajeConmebol;
         float porcentajeUefa;
         float porcentajeAfc;
         float porcentajeConcaf;
         float porcentajeOfc;
+        float porcentajeCaf;
 
 
         for(int i = 0; i < tam; i ++)
@@ -1170,7 +1178,7 @@ int porcentajeJugadoresXConfederacion(eJugador vec[], int tam, eConfederacion co
                         if(vec[i].idConfederacion == 103)
                         {
 
-                            contJugAfc++;
+                            contJugCaf++;
                         }
                         else
                         {
@@ -1208,21 +1216,23 @@ int porcentajeJugadoresXConfederacion(eJugador vec[], int tam, eConfederacion co
         todoOk = 1;
 
         totalJugadores(vec, tam, &totalJ);
-        porcentajeConmebol = (contJugConmebol * 100)/totalJ;
-        porcentajeUefa = (contJugUefa * 100)/totalJ;
-        porcentajeAfc = (contJugAfc * 100)/totalJ;
-        porcentajeConcaf = (contJugConcaf * 100)/totalJ;
-        porcentajeOfc = (contJugOfc * 100)/totalJ;
+        porcentajeConmebol = (float)(contJugConmebol * 100)/totalJ;
+        porcentajeUefa =  (float)(contJugUefa * 100)/totalJ;
+        porcentajeAfc =  (float)(contJugAfc * 100)/totalJ;
+        porcentajeConcaf = (float) (contJugConcaf * 100)/totalJ;
+        porcentajeOfc =  (float)(contJugOfc * 100)/totalJ;
+        porcentajeCaf =  (float)(contJugCaf * 100)/totalJ;
 
         system("cls");
         printf("    ****Porcentaje X Confederacion\n");
         printf("    porcentaje         confederacion\n");
         printf("-------------------------------------\n");
-        printf("  %10s              %5.2f\n","Conmebol", porcentajeConmebol);
-        printf("  %10s              %5.2f\n","Uefa", porcentajeUefa);
-        printf("  %10s              %5.2f\n","Afc", porcentajeAfc);
-        printf("  %10s              %5.2f\n","Concaf", porcentajeConcaf);
-        printf("  %10s              %5.2f\n","Ofc", porcentajeOfc);
+        printf("  %10s              %.2f\n","Conmebol", porcentajeConmebol);
+        printf("  %10s              %.2f\n","Uefa", porcentajeUefa);
+        printf("  %10s              %.2f\n","Afc", porcentajeAfc);
+        printf("  %10s              %.2f\n","Concaf", porcentajeConcaf);
+        printf("  %10s              %.2f\n","Ofc", porcentajeOfc);
+        printf("  %10s              %.2f\n","Caf", porcentajeCaf);
 
 
     }
@@ -1301,14 +1311,14 @@ int regionMasJugadores(eJugador vec[], int tam, eConfederacion confederaciones[]
 
         }
 
-        for(int i = 0; i < tamC; i++)//recorro el vector de las confederaciones
+        for(int i = 0; i < tamC; i++)
         {
 
             totalJugadoresXConfederacion(vec, tam, confederaciones, tamC, confederaciones[i].id, &cantJugadores[i]); //tengo la cantidad de jugadores cargados en mi vector paralelo.
 
         }
 
-        for( int i = 0; i<tamC; i++) //recorro el vector buscando el mayor.
+        for( int i = 0; i<tamC; i++)
         {
             if(flag || cantJugadores[i]> mayor)
             {
@@ -1388,7 +1398,7 @@ int totalJugadoresXConfederacion(eJugador vec[], int tam, eConfederacion confede
 
         }
 
-        *pTotal = contJugadores;//lo envio por referencia
+        *pTotal = contJugadores;
 
         todoOk = 1;
 
@@ -1399,6 +1409,10 @@ int totalJugadoresXConfederacion(eJugador vec[], int tam, eConfederacion confede
 
     return todoOk;
 }
+
+
+
+
 
 
 

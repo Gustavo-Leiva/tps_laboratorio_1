@@ -1,12 +1,15 @@
 /*
- * confederacion.h
+ * confederation.h
  *
- *  Created on: 29 oct. 2022
+ *  Created on: 18 nov. 2022
  *      Author: Impuestos
  */
 
-#ifndef CONFEDERACION_H_
-#define CONFEDERACION_H_
+#include <stdio.h>
+#include <stdlib.h>
+
+#ifndef CONFEDERATION_H_
+#define CONFEDERATION_H_
 
 typedef struct
 {
@@ -14,10 +17,12 @@ typedef struct
     char nombre [50];
     char region [50];
     int anioCreacion;
+    int isEmpty;
 
 }eConfederacion;
 
-#endif /* CONFEDERACION_H_ */
+#endif /* CONFEDERATION_H_ */
+
 
 
 /** \brief recibe un id y carga la descripcion de ese id en una cadena de caracteres.
@@ -63,4 +68,29 @@ int buscarConfederacion(eConfederacion vec[], int tamC, int id, int* pIndex);
  *
  */
 int validarConfederacion(eConfederacion vec[], int tamC, int id);
+
+
+
+
+
+
+/*
+------------------------------------------------------------------------------------------
+
+                             ABM CONFEDERACIONES
+
+
+------------------------------------------------------------------------------------------
+*/
+
+
+
+int inicializarConfederacion(eConfederacion vec[], int tam_C);
+int harcodearConfederaciones(eConfederacion vec[], int tam_C, int cantC, int* pNextId);
+int buscarLibreConfederacion(eConfederacion vec[], int tam_C, int* pIndex);
+int altaConfederacion(eConfederacion vec[], int tam_C, int tam_R, int* pNextId);
+void mostrarConfederacion(eConfederacion confederaciones, int tamC);
+int modificarConfederacion(eConfederacion confederaciones[], int tamC);
+void confederaciones();
+void regiones();
 

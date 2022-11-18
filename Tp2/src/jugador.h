@@ -1,15 +1,21 @@
 /*
  * jugador.h
  *
- *  Created on: 29 oct. 2022
+ *  Created on: 18 nov. 2022
  *      Author: Impuestos
  */
 
+#include <stdio.h>
+#include <stdlib.h>
 
-#include "confederacion.h"
+
+#include "confederation.h"
+
 
 #ifndef JUGADOR_H_
 #define JUGADOR_H_
+
+
 
 typedef struct
 {
@@ -26,13 +32,6 @@ typedef struct
 
 #endif /* JUGADOR_H_ */
 
-
-/** \brief imprime por pantalla las opciones del menu de jugadores.
- *
- * \return int retorna la opcion ingresada.
- *
- */
-int menuJugador();
 
 
 /** \brief coloca el campo isEmpty de la estructura en 1
@@ -70,7 +69,7 @@ int buscarLibreJugador(eJugador vec[], int tam, int* pIndex);
 
 /** \brief realiza el alta de los datos solicitados por el sistema.
  *
- * \param vec[] eJugador array de la estructura micros.
+ * \param vec[] Jugador array de la estructura micros.
  * \param tam int tamaño del array vec.
  * \param confederaciones[] eConfederacion array de la estructura confederaciones.
  * \param tamC int tamanio del array confederaciones.
@@ -78,12 +77,12 @@ int buscarLibreJugador(eJugador vec[], int tam, int* pIndex);
  * \return int devuelve 1 si el alta fue exitosa.
  *
  */
-int altaJugador(eJugador vec[], int tam, eConfederacion confederaciones[], int tamC, int* pNextId);
+int altaJugador(eJugador vec[], int tam, eConfederacion confederaciones[], int tamC, int* pNextId, int* pFlag);
 
 
 /** \brief realiza la modificacion de los datos solicitados por el sistema.
  *
- * \param vec[] eJugador array de la estructura micros.
+ * \param vec[] Jugador array de la estructura micros.
  * \param tam int tamaño del array vec.
  * \param confederaciones[] eConfederacion array de la estructura confederaciones.
  * \param tamC int tamanio del array confederaciones.
@@ -91,7 +90,7 @@ int altaJugador(eJugador vec[], int tam, eConfederacion confederaciones[], int t
  * \return int devuelve 1 si la modificacion fue exitosa.
  *
  */
-int modificarJugador(eJugador jugadores[], int tam, eConfederacion confederaciones[], int tamC);
+int modificarJugador(eJugador jugadores[], int tam, eConfederacion confederaciones[], int tamC,  int flag);
 
 
 /** \brief muestra por pantalla en forma de una tabla las estructura que no estan vacias de jugadores en el sistema.
@@ -152,16 +151,7 @@ int buscarJugador(eJugador jugadores[], int tam, int id, int* pIndex);
 int validarJugador (eJugador jugadores[], int tam, int id);
 
 
-/** \brief lista en el sistema los micros en forma de tabla.
- *
- * \param micros eJugador array de la estructura jugadores.
- * \param tam int tamanio del array jugadores.
- * \param confederaciones[] eConfederacion  array de la estructura confederaciones.
- * \param tamC int tamanio del array confederaciones.
- * \return void
- *
- */
-int menuModificarJugador();
+
 
 
 /** \brief realiza la baja de los datos solicitados por el sistema.
@@ -173,14 +163,9 @@ int menuModificarJugador();
  * \return int devuelve 1 si la baja fue exitosa.
  *
  */
-int bajaJugador (eJugador jugadores[], int tam, eConfederacion confederaciones[], int tamC);
+int bajaJugador (eJugador jugadores[], int tam, eConfederacion confederaciones[], int tamC, int flag);
 
-/** \brief imprime por pantalla las opciones del menu de informes.
- *
- * \return int retorna la opcion ingresada.
- *
- */
-int menuInforme();
+
 
 
 
@@ -196,7 +181,7 @@ int menuInforme();
  * \return int devuelve 1 si la opcion ingresada fue correcta.
  *
  */
-int informes (eJugador vec[], int tam, eConfederacion confederaciones[], int tamC);
+int informes (eJugador vec[], int tam, eConfederacion confederaciones[], int tamC, int flag);
 
 
 
@@ -374,4 +359,8 @@ int totalContratosXIdConfederacion(eJugador vec[], int tam, eConfederacion confe
  *
  */
 int porcentajeJugadoresXConfederacion(eJugador vec[], int tam, eConfederacion confederaciones[], int tamC);
+
+
+
+
 

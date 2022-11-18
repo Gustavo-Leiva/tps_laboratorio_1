@@ -1,10 +1,3 @@
-/*
- * funciones.c
- *
- *  Created on: 24 sep. 2022
- *      Author: Gustavo Leiva
- */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
@@ -184,6 +177,9 @@ int pedirCamiseta(char* pNumero, char mensaje[])
             *pNumero = numero;
             todoOk = 1;
         }
+
+
+
     }
     return todoOk;
 }
@@ -469,4 +465,5 @@ int confirmarCarga (char* x)
 
     return todoOk;
 }
+
 

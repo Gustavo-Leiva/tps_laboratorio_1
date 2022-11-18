@@ -1,16 +1,10 @@
-/*
- * validaciones.h
- *
- *  Created on: 24 sep. 2022
- *      Author: Gustavo Leiva
- */
-
-#ifndef VALIDACIONES_H_
-#define VALIDACIONES_H_
+#ifndef VALIDACIONES_H_INCLUDED
+#define VALIDACIONES_H_INCLUDED
 
 
 
-#endif /* VALIDACIONES_H_ */
+#endif // VALIDACIONES_H_INCLUDED
+
 
 /** \brief solicita al usuario el ingreso de una opcion sobre la opciones listadas.
  *
@@ -96,3 +90,8 @@ int validarNumero(char numero[]);
  *
  */
 int convertirCharAInt(char num[], int* pNumero);
+
+
+
+
+int utn_getNumeroInt(int* pResultado, char* mensaje, char* mensajeError, int minimo, int maximo, int reintentos);

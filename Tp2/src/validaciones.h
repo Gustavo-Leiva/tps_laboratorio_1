@@ -1,7 +1,7 @@
 /*
  * validaciones.h
  *
- *  Created on: 29 oct. 2022
+ *  Created on: 18 nov. 2022
  *      Author: Impuestos
  */
 
@@ -11,7 +11,6 @@
 
 
 #endif /* VALIDACIONES_H_ */
-
 /** \brief valida que los datos ingresdaos por el ususario sean caracteres
  *
  * \param letras[] char cadena de caracteres
@@ -128,3 +127,16 @@ void confirmarSalida (char* x);
  *
  */
 int confirmarCarga (char* x);
+
+
+
+
+
+
+
+int utn_getNumeroInt(int* pResultado, char* mensaje, char* mensajeError, int minimo, int maximo, int reintentos);
+
+
+int capitalString (char string[]);
+int quitarEnter (char string[], int max_string);
+int cargaString (char string[], int max_string, char* mensaje, char* mensajeError);

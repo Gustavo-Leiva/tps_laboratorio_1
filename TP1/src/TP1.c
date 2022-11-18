@@ -26,9 +26,9 @@ int main(void) {
 
 	setbuf(stdout, NULL);
 
-	    char salir = 'N';
+	char salir = 'N';
 	    char carga ;
-	    char opcion [] = {"1,2,3,4,5"};
+	    char opcion [] = {"1,2,3,4,30"};
 	    int contTotalJugadores = 0;
 	    float costoHospedaje=0;
 	    float acumCostoHospedaje = 0;
@@ -37,7 +37,7 @@ int main(void) {
 	    float costoTransporte=0;
 	    float acumCostoTransporte = 0;
 	    int puesto;
-	    char numeroCamiseta;
+	    int numeroCamiseta;
 	    int contArqueros = 0;
 	    int contDefensores = 0;
 	    int contMediocampistas= 0;
@@ -45,7 +45,6 @@ int main(void) {
 	    char mensajeCostoComida []= {"Ingrese el costo de comida: "};
 	    char mensajeCostoHospedaje []= {"Ingrese el costo del hospedaje: "};
 	    char mensajeCostoTransporte []= {"Ingrese el costo del transporte: "};
-	    char mensajePedidoCamiseta []= {"numero de camiseta"};
 	    char mensajePedidoJugador [] = {"Posicion del jugador:\n1- Arquero,\n2- Defensor,\n3- Mediocampista,\n4- Delantero\n"};
 	    float promedioAfc;
 	    float promedioCaf;
@@ -74,7 +73,7 @@ int main(void) {
 	    {
 	        switch(menuPrincipal(&acumCostoHospedaje, &acumCostoComida, &acumCostoTransporte, &contArqueros, &contDefensores, &contMediocampistas, &contDelanteros))
 	        {
-	        //Menu costo de mantenimiento.
+
 	        case 1:
 
 	            pedirValidarNumeroFlotante(&costoHospedaje, mensajeCostoHospedaje);
@@ -88,6 +87,7 @@ int main(void) {
 	            }
 
 
+
 	            pedirValidarNumeroFlotante(&costoComida, mensajeCostoComida);
 	            confirmarCarga(&carga);
 	            if(carga == 's' || carga == 'S')
@@ -96,6 +96,7 @@ int main(void) {
 	                mantenimiento(&flagMantenimiento);
 
 	            }
+
 
 
 	            pedirValidarNumeroFlotante(&costoTransporte, mensajeCostoTransporte);
@@ -108,9 +109,10 @@ int main(void) {
 	            }
 
 
+
+
 	            break;
 
-	        //Menu carga de Jugadores.
 	        case 2:
 	            if(flagMantenimiento == 1)
 	            {
@@ -130,17 +132,26 @@ int main(void) {
 	                        cargarYContarLiga(&contJugadoresLigaAfc, &contJugadoresLigaCaf, &contJugadoresLigaConcacaf,
 	                                          &contJugadoresLigaConmebol, &contJugadoresLigaUefa, &contJugadoresLigaOfc);
 
-	                        pedirCamiseta(&numeroCamiseta, mensajePedidoCamiseta);
 
-	                        confirmarCarga(&carga);
-	                        if(carga == 's' || carga == 'S')
+	                        if(utn_getNumeroInt(&numeroCamiseta, "Ingrese numero de camiseta del 1 al 100\n", "Error, numero mayor a 1 y menor a 100\n",1,100,2)==0)
+
 	                        {
-	                            numeroCamiseta = numeroCamiseta;
-	                            contArqueros++;
-	                            contTotalJugadores++;
-	                            jugador( &flagMantenimiento, &flagJugador);
+	                            confirmarCarga(&carga);
+	                            if(carga == 's' || carga == 'S')
+	                            {
+	                                numeroCamiseta = numeroCamiseta;
+	                                contArqueros++;
+	                                contTotalJugadores++;
+	                                jugador( &flagMantenimiento, &flagJugador);
+	                            }
 
 	                        }
+
+	                        else
+	                        {
+	                            printf("Error en la carga de datos, intentos terminados.\n");
+	                        }
+
 	                    }
 
 	                    break;
@@ -158,17 +169,25 @@ int main(void) {
 	                        cargarYContarLiga(&contJugadoresLigaAfc, &contJugadoresLigaCaf, &contJugadoresLigaConcacaf,
 	                                          &contJugadoresLigaConmebol, &contJugadoresLigaUefa, &contJugadoresLigaOfc);
 
-	                        pedirCamiseta(&numeroCamiseta, mensajePedidoCamiseta);
+	                        if(utn_getNumeroInt(&numeroCamiseta, "Ingrese numero de camiseta del 1 al 100\n", "Error, numero mayor a 1 y menor a 100\n",1,100,2)==0)
 
-	                        confirmarCarga(&carga);
-	                        if(carga == 's' || carga == 'S')
 	                        {
-	                            numeroCamiseta = numeroCamiseta;
-	                            contDefensores++;
-	                            contTotalJugadores++;
-	                            jugador( &flagMantenimiento, &flagJugador);
+	                            confirmarCarga(&carga);
+	                            if(carga == 's' || carga == 'S')
+	                            {
+	                                numeroCamiseta = numeroCamiseta;
+	                                contDefensores++;
+	                                contTotalJugadores++;
+	                                jugador( &flagMantenimiento, &flagJugador);
+	                            }
 
 	                        }
+
+	                        else
+	                        {
+	                            printf("Error en la carga de datos, intentos terminados.\n");
+	                        }
+
 
 	                    }
 	                    break;
@@ -187,17 +206,25 @@ int main(void) {
 	                                          &contJugadoresLigaConmebol, &contJugadoresLigaUefa, &contJugadoresLigaOfc);
 
 
-	                        pedirCamiseta(&numeroCamiseta, mensajePedidoCamiseta);
+	                        if(utn_getNumeroInt(&numeroCamiseta, "Ingrese numero de camiseta del 1 al 100\n", "Error, numero mayor a 1 y menor a 100\n",1,100,2)==0)
 
-	                        confirmarCarga(&carga);
-	                        if(carga == 's' || carga == 'S')
 	                        {
-	                            numeroCamiseta = numeroCamiseta;
-	                            contMediocampistas++;
-	                            contTotalJugadores++;
-	                            jugador( &flagMantenimiento, &flagJugador);
+	                            confirmarCarga(&carga);
+	                            if(carga == 's' || carga == 'S')
+	                            {
+	                                numeroCamiseta = numeroCamiseta;
+	                                contMediocampistas++;
+	                                contTotalJugadores++;
+	                                jugador( &flagMantenimiento, &flagJugador);
+	                            }
 
 	                        }
+
+	                        else
+	                        {
+	                            printf("Error en la carga de datos, intentos terminados.\n");
+	                        }
+
 
 	                    }
 	                    break;
@@ -217,17 +244,27 @@ int main(void) {
 
 
 
-	                        pedirCamiseta(&numeroCamiseta, mensajePedidoCamiseta);
+	                        if(utn_getNumeroInt(&numeroCamiseta, "Ingrese numero de camiseta del 1 al 100\n", "Error, numero mayor a 1 y menor a 100\n",1,100,2)==0)
 
-	                        confirmarCarga(&carga);
-	                        if(carga == 's' || carga == 'S')
 	                        {
-	                            numeroCamiseta = numeroCamiseta;
-	                            contDelanteros++;
-	                            contTotalJugadores++;
-	                            jugador( &flagMantenimiento, &flagJugador);
+	                            confirmarCarga(&carga);
+	                            if(carga == 's' || carga == 'S')
+	                            {
+	                                numeroCamiseta = numeroCamiseta;
+	                                contDelanteros++;
+	                                contTotalJugadores++;
+	                                jugador( &flagMantenimiento, &flagJugador);
+	                            }
 
 	                        }
+
+	                        else
+	                        {
+	                            printf("Error en la carga de datos, intentos terminados.\n");
+	                        }
+
+
+
 
 	                    }
 	                    break;
@@ -244,7 +281,7 @@ int main(void) {
 	            break;
 
 
-	        //Realizar todos los calculos
+
 	        case 3:
 	            if(flagJugador ==1)
 	            {
@@ -276,7 +313,7 @@ int main(void) {
 
 
 
-	        //Mostrar los resultados.
+
 	        case 4:
 	            if(flagCalcular == 1)
 	            {
@@ -305,7 +342,6 @@ int main(void) {
 
 	            else
 	            {
-
 	                informar(&flagMantenimiento, &flagJugador, &flagCalcular);
 	            }
 

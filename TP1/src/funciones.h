@@ -1,16 +1,10 @@
-/*
- * funciones.h
- *
- *  Created on: 24 sep. 2022
- *      Author: Gustavo Leiva
- */
-
-#ifndef FUNCIONES_H_
-#define FUNCIONES_H_
+#ifndef FUNCIONES_H_INCLUDED
+#define FUNCIONES_H_INCLUDED
 
 
 
-#endif /* FUNCIONES_H_ */
+#endif // FUNCIONES_H_INCLUDED
+
 
 
 /** \brief Muestra la barra de menu de opciones y devuelve la carga actualizada de las opciones ingresadas.
