@@ -4,12 +4,10 @@
 #include "Seleccion.h"
 
 
-#include "valicaciones.h"
+#include "validaciones.h"
 
 #include <string.h>
 #include <ctype.h>
-
-
 
 
 /*
@@ -19,7 +17,6 @@
 
 ------------------------------------------------------------------------------------
 */
-
 
 Seleccion* selec_new()
 {
@@ -41,27 +38,19 @@ Seleccion* selec_new()
 Seleccion* selec_newParametros(char* idStr,char* paisStr,char* confederacionStr, char* convocadosStr)
 {
 
-    Seleccion* nuevaSeleccion = selec_new();
-    //int idSelec;
-    //int idConvocados;
+	 Seleccion* nuevaSeleccion = selec_new();
 
-
-    //validarConvertirChar_Int(idStr, &idSelec);
-    //validarConvertirChar_Int(convocadosStr, &idConvocados);
-
-
-
-
-    if(!(selec_setId(nuevaSeleccion, atoi(idStr)) &&
-            selec_setPais(nuevaSeleccion, paisStr) &&
-            selec_setConfederacion(nuevaSeleccion, confederacionStr) &&
-            selec_setConvocados(nuevaSeleccion, atoi(confederacionStr))))
-    {
-        free(nuevaSeleccion);
-        nuevaSeleccion = NULL;
-    }
-    return nuevaSeleccion;
+	   if(nuevaSeleccion != NULL)
+		{
+			nuevaSeleccion->id = atoi(idStr);
+			strcpy(nuevaSeleccion->pais, paisStr);
+			strcpy(nuevaSeleccion->confederacion, confederacionStr);
+			selec_setConvocados(nuevaSeleccion, atoi(convocadosStr));
+		}
+	    return nuevaSeleccion;
 }
+
+
 
 
 void Seleccion_printOne(Seleccion* unaSeleccion)
@@ -95,8 +84,6 @@ void Seleccion_printOne(Seleccion* unaSeleccion)
 
 
 
-
-
 /*
 ------------------------------------------------------------------------------------
 
@@ -106,52 +93,6 @@ void Seleccion_printOne(Seleccion* unaSeleccion)
 */
 
 
-int selec_setId(Seleccion* selec, int id)
-{
-    int todoOk = 0;
-
-    if(selec != NULL && id >= 0)
-    {
-        selec->id = id;
-        //(*pNextId) = id+1;
-        todoOk = 1;
-    }
-    return todoOk;
-}
-
-
-
-
-
-int selec_setPais(Seleccion* selec, char* pais)
-{
-    int todoOk = 0;
-
-    if(selec != NULL && pais != NULL && strlen(pais) < 100 && strlen(pais) > 1)
-    {
-        strcpy(selec->pais, pais);
-        strlwr(selec->pais);
-        selec->pais[0] = toupper(selec->pais[0]);
-        todoOk = 1;
-    }
-    return todoOk;
-}
-
-
-
-int selec_setConfederacion(Seleccion* selec, char* confed)
-{
-    int todoOk = 0;
-
-    if(selec != NULL && confed != NULL && strlen(confed) < 100 && strlen(confed) >= 1)
-    {
-        strcpy(selec->confederacion, confed);
-        strlwr(selec->confederacion);
-        selec->confederacion[0] = toupper(selec->confederacion[0]);
-        todoOk = 1;
-    }
-    return todoOk;
-}
 
 
 
@@ -167,6 +108,11 @@ int selec_setConvocados(Seleccion* selec, int convocados)
     }
     return todoOk;
 }
+
+
+
+
+
 
 
 /*
@@ -207,7 +153,7 @@ int selec_getPais(Seleccion* this,char* pais)
 }
 
 
-int selec_getConfederacion(Seleccion* this,char* confederacion)
+int selec_getConfederacion(Seleccion* this, char* confederacion)
 {
     int todoOk = 0;
 
@@ -232,6 +178,10 @@ int selec_getConvocados(Seleccion* this,int* convocados)
     }
     return todoOk;
 }
+
+
+
+
 
 
 

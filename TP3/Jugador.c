@@ -3,10 +3,12 @@
 
 #include "controller.h"
 #include "Jugador.h"
-#include "valicaciones.h"
+#include "validaciones.h"
+#include "menu.h"
 
 #include <string.h>
 #include <ctype.h>
+
 
 
 /*
@@ -96,7 +98,7 @@ void Jugador_printOne(Jugador* unJugador)
 */
 
 
-Jugador* Jugador_new()
+Jugador* jug_new()
 {
     Jugador* nuevoJugador = (Jugador*) malloc(sizeof(Jugador));
     if(nuevoJugador != NULL)
@@ -104,7 +106,7 @@ Jugador* Jugador_new()
         nuevoJugador->id = 0;
         strcpy(nuevoJugador->nombreCompleto, "");
         nuevoJugador->edad=0,
-                      strcpy(nuevoJugador->posicion, "");
+        strcpy(nuevoJugador->posicion, "");
         strcpy(nuevoJugador->nacionalidad, "");
         nuevoJugador->idSeleccion = 0;
 
@@ -116,22 +118,18 @@ Jugador* Jugador_new()
 
 
 
-Jugador* jug_newParametros(char* idStr, char* nombreCompletoStr, char* edadStr, char* posicionStr, char* nacionalidadStr, char* idSeleccionStr, int* pNextId )
+Jugador* jug_newParametros(char* idStr, char* nombreCompletoStr, char* edadStr, char* posicionStr, char* nacionalidadStr, char* idSeleccionStr)
 {
-    Jugador* nuevoJugador = Jugador_new();
+    Jugador* nuevoJugador = jug_new();
     int idJug;
-    //int edad;
-    //int idSelec;
+
 
     validarConvertirChar_Int(idStr, &idJug);
-    //validarConvertirChar_Int(idStr, &edad);
-    //validarConvertirChar_Int(idStr, &idSelec);
 
 
-    if(pNextId != NULL)
-    {
 
-        if(!(jug_setId(nuevoJugador, idJug, pNextId) &&
+
+        if(!(jug_setId(nuevoJugador, idJug) &&
                 jug_setNombreCompleto(nuevoJugador, nombreCompletoStr) &&
                 jug_setEdad(nuevoJugador, atoi(edadStr)) &&
                 jug_setPosicion(nuevoJugador, posicionStr) &&
@@ -141,7 +139,7 @@ Jugador* jug_newParametros(char* idStr, char* nombreCompletoStr, char* edadStr, 
             free(nuevoJugador);
             nuevoJugador = NULL;
         }
-    }
+
     return nuevoJugador;
 }
 
@@ -150,7 +148,7 @@ Jugador* jug_newParametros(char* idStr, char* nombreCompletoStr, char* edadStr, 
 
 Jugador* jug_newAddParametros(char* nombreCompletoStr, int edad, char* posicionStr, char* nacionalidadStr, int idSeleccion, int* pNextId)
 {
-    Jugador* nuevoJugador = Jugador_new();
+    Jugador* nuevoJugador = jug_new();
     int idJug;
     idJug = *pNextId;
 
@@ -158,7 +156,7 @@ Jugador* jug_newAddParametros(char* nombreCompletoStr, int edad, char* posicionS
 
     if(pNextId != NULL)
     {
-        if(!(jug_setId(nuevoJugador, idJug, pNextId) &&
+        if(!(jug_setId(nuevoJugador, idJug) &&
                 jug_setNombreCompleto(nuevoJugador, nombreCompletoStr) &&
                 jug_setEdad(nuevoJugador, edad) &&
                 jug_setPosicion(nuevoJugador, posicionStr) &&
@@ -191,14 +189,13 @@ Jugador* jug_newAddParametros(char* nombreCompletoStr, int edad, char* posicionS
 */
 
 
-int jug_setId(Jugador* jug, int idJugador, int* pNextId)
+int jug_setId(Jugador* jug, int idJugador)
 {
     int todoOk = 0;
 
     if(jug != NULL && idJugador > 0)
     {
         jug->id = idJugador;
-        (*pNextId) = idJugador+1;
         todoOk = 1;
     }
     return todoOk;
@@ -379,13 +376,8 @@ int jug_getSIdSeleccion(Jugador* this,int* idSeleccion)
 
 }
 
-/*
--------------------------------------------------------------------------------------
 
-                                OTRAS FUNCIONES
 
---------------------------------------------------------------------------------------
-*/
 
 int Jugador_buscarId(LinkedList* pArrayListJugador, int *pIndex, int id)
 {
@@ -408,6 +400,205 @@ int Jugador_buscarId(LinkedList* pArrayListJugador, int *pIndex, int id)
                 }
             }
         }
+    }
+    return todoOk;
+}
+
+
+int jug_asignarPosicion(char* posicion)
+{
+    int todoOk = -1;
+    int auxInt;
+
+    if(posicion != NULL)
+    {
+    	menuPosicion();
+    	utn_getNumero(&auxInt,"Ingrese una opcion\n","Error, parametro no valido\n",1,11,100);
+        switch(auxInt)
+            {
+            case 1:
+                strcpy(posicion,"Portero");
+                break;
+            case 2:
+                strcpy(posicion,"Defensa Central");
+                break;
+            case 3:
+                strcpy(posicion,"Lateral izquierdo");
+                break;
+            case 4:
+                strcpy(posicion,"Lateral derecho");
+                break;
+            case 5:
+				strcpy(posicion,"Pivote");
+				break;
+            case 6:
+				strcpy(posicion,"Mediocentro");
+				break;
+            case 7:
+				strcpy(posicion,"Mediocentro ofensivo");
+				break;
+            case 8:
+				strcpy(posicion,"Extremo izquierdo");
+				break;
+            case 9:
+				strcpy(posicion,"Extremo derecho");
+				break;
+            case 10:
+				strcpy(posicion,"Mediapunta");
+				break;
+            case 11:
+				strcpy(posicion,"Delantero centro");
+				break;
+            }
+
+        todoOk = 0;
+    }
+
+    return todoOk;
+}
+
+
+int jug_asignarNacionalidad(char *nacionalidad)
+{
+    int todoOk = -1;
+    int auxInt;
+
+    if(nacionalidad != NULL)
+    {
+    	menuNacionalidades();
+        utn_getNumero(&auxInt,"Ingrese una opcion\n","Error, opcion invalida\n",1,32,99);
+        switch(auxInt)
+            {
+            case 1:
+                strcpy(nacionalidad,"Aleman");
+                break;
+            case 2:
+                strcpy(nacionalidad,"Arabe");
+                break;
+            case 3:
+                strcpy(nacionalidad,"Argentino");
+                break;
+            case 4:
+                strcpy(nacionalidad,"Austriaco");
+                break;
+            case 5:
+				strcpy(nacionalidad,"Belga");
+				break;
+            case 6:
+				strcpy(nacionalidad,"Brasilero");
+				break;
+            case 7:
+				strcpy(nacionalidad,"Canadiense");
+				break;
+            case 8:
+				strcpy(nacionalidad,"Camerunes");
+				break;
+            case 9:
+				strcpy(nacionalidad,"Sud Coreano");
+				break;
+            case 10:
+				strcpy(nacionalidad,"Costarricense");
+				break;
+            case 11:
+				strcpy(nacionalidad,"Croata");
+				break;
+            case 12:
+				strcpy(nacionalidad,"Dinamarques");
+				break;
+			case 13:
+				strcpy(nacionalidad,"Ecuatoriano");
+				break;
+			case 14:
+				strcpy(nacionalidad,"Espaniol");
+				break;
+			case 15:
+				strcpy(nacionalidad,"Estadounidense");
+				break;
+			case 16:
+				strcpy(nacionalidad,"Frances");
+				break;
+			case 17:
+				strcpy(nacionalidad,"Gales");
+				break;
+			case 18:
+				strcpy(nacionalidad,"Ghanes");
+				break;
+			case 19:
+				strcpy(nacionalidad,"Ingles");
+				break;
+			case 20:
+				strcpy(nacionalidad,"Irani");
+				break;
+			case 21:
+				strcpy(nacionalidad,"Japones");
+				break;
+			case 22:
+				strcpy(nacionalidad,"Marroqui");
+				break;
+			case 23:
+				strcpy(nacionalidad,"Mexicano");
+				break;
+			case 24:
+				strcpy(nacionalidad,"Nerlandes");
+				break;
+			case 25:
+				strcpy(nacionalidad,"Polaco");
+				break;
+			case 26:
+				strcpy(nacionalidad,"Portugues");
+				break;
+			case 27:
+				strcpy(nacionalidad,"Qatari");
+				break;
+			case 28:
+				strcpy(nacionalidad,"Senegales");
+				break;
+			case 29:
+				strcpy(nacionalidad,"Serbio");
+				break;
+			case 30:
+				strcpy(nacionalidad,"Suizo");
+				break;
+			case 31:
+				strcpy(nacionalidad,"Tunecino");
+				break;
+			case 32:
+				strcpy(nacionalidad,"Uruguayo");
+				break;
+            }
+
+        todoOk = 0;
+    }
+
+    return todoOk;
+}
+
+
+
+
+
+int Jugador_comparaId(void* pElement1, void* pElement2)
+{
+    int todoOk = 0;
+    int id1;
+    int id2;
+
+    if(pElement1 != NULL && pElement2 != NULL)
+    {
+        jug_getId(pElement1, &id1);
+        jug_getId(pElement2, &id2);
+        if(id1 > id2)
+        {
+            todoOk = 1;
+        }
+        else
+        {
+            if(id1 < id2)
+            {
+                todoOk = -1;
+            }
+        }
+
     }
     return todoOk;
 }
@@ -491,4 +682,14 @@ int Jugador_compareNacionalidad(void* pElement1, void* pElement2)
 
     }
     return todoOk;
+}
+
+
+void jug_delete(Jugador* this)
+{
+
+	if(this != NULL)
+	{
+		free(this);
+	}
 }
