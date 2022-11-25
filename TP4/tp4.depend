@@ -1,0 +1,28 @@
+# depslib dependency file v1.0
+1669399572 source:c:\users\impuestos\documents\personal\utn\ejercicios en codigo c\clase de apoyo\tp4\main.c
+	<stdio.h>
+	<stdlib.h>
+	<stdio.h>
+	<stdlib.h>
+	"Linkedlist.h"
+	"jugador.h"
+
+1669395482 source:c:\users\impuestos\documents\personal\utn\ejercicios en codigo c\clase de apoyo\tp4\linkedlist.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"LinkedList.h"
+
+1669054167 c:\users\impuestos\documents\personal\utn\ejercicios en codigo c\clase de apoyo\tp4\linkedlist.h
+
+1669126804 source:c:\users\impuestos\documents\personal\utn\ejercicios en codigo c\clase de apoyo\tp4\jugador.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	"jugador.h"
+	"LinkedList.h"
+
+1669126803 c:\users\impuestos\documents\personal\utn\ejercicios en codigo c\clase de apoyo\tp4\jugador.h
+	"LinkedList.h"
+
