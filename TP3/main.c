@@ -47,7 +47,7 @@ int main() {
 			break;
 
 		case 7:
-			controller_ordenarYListar(listaJugadores,jugadoresConvocados);
+			controller_ordenarYListar(listaJugadores,listaSelecciones);
 			break;
 
 		case 8:
